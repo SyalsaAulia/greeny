@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>Greeny - Klasifikasi Sampah Menggunakan Machine Learning</title>
 </head>
 
@@ -13,60 +14,60 @@
     <div class="container col-xxl-8 mx-auto px-5 py-5 my-4">
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
             <div class="col-10 col-sm-8 col-lg-6">
-                <lottie-player class="d-block mx-lg-auto img-fluid" src="lottie/lf30_fpransrw.json"
-                    background="transparent" speed="2" loop autoplay>
+                <lottie-player class="d-block mx-lg-auto img-fluid" src="lottie/lf30_fpransrw.json" background="transparent" speed="2" loop autoplay>
                 </lottie-player>
             </div>
             <div class="col-lg-6">
                 <h1 class="display-5 fw-bold lh-1 mb-3">Greeny</h1>
-                <p class="lead">Deteksi sampahmu dengan menggunakan teknologi machine learning untuk mempermudah
-                    klasifikasi sampah organik dan anorganik agar sampah dapat diatur ulang dengan baik.</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="camera.html" type="button" class="btn btn-outline-light btn-lg px-4 me-md-2"
-                        style="background-color: #95a67e;">Mulai</a>
-                    <button type="button" class="btn btn-outline-secondary btn-lg px-4" data-bs-toggle="modal"
-                        data-bs-target="#tentangModal">Tentang</button>
+                <p class="lead">Deteksi sampahmu dengan menggunakan teknologi machine learning untuk mempermudah klasifikasi sampah organik dan anorganik agar sampah dapat diatur ulang dengan baik.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-3">
+                    <a href="camera.html" type="button" class="btn btn-outline-light btn-lg px-4 me-md-2" style="background-color: #95a67e;">Mulai</a>
+                    <button type="button" class="btn border-0 btn-outline-secondary btn-lg px-4" data-bs-toggle="modal" data-bs-target="#tentangModal">Tentang</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="tentangModal" tabindex="-1" aria-labelledby="tentangModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tentangModalLabel">Tentang</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6>"Greeny - Klasifikasi Sampah Menggunakan Machine Learning"</h6>
+                        <p>Dikembangkan oleh:
+                            <a href="https://www.instagram.com/syalsasvraulia/" target="_blank">Syalsa Selvira Aulia</a>
+                        </p>
+                        <p>Tools dan bahasa yang digunakan:</p>
+                        <ul>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>Javascript</li>
+                            <li>Bootstrap 5</li>
+                            <li>Lottie</li>
+                            <li>Teachable Machine</li>
+                            <li>Tensorflow.js</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="tentangModal" tabindex="-1" aria-labelledby="tentangModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="tentangModalLabel">Tentang</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h6>"Greeny - Klasifikasi Sampah Menggunakan Machine Learning"</h6>
-                    <p>Dikembangkan oleh:
-                        <a href="https://www.instagram.com/syalsasvraulia/" target="_blank">Syalsa Selvira Aulia</a>
-                    </p>
-                    <p>Tools dan bahasa yang digunakan:</p>
-                    <ul>
-                        <li>HTML</li>
-                        <li>CSS</li>
-                        <li>Javascript</li>
-                        <li>Bootstrap 5</li>
-                        <li>Lottie</li>
-                        <li>Teachable Machine</li>
-                        <li>Tensorflow.js</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="lottie/lottie-player.js"></script>
     <script src="tensorflow/tf.min.js"></script>
     <script src="tensorflow/teachablemachine-image.min.js"></script>
 </body>
+
+</html>
 
 </html>

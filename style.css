@@ -1,0 +1,19 @@
+body {
+    background: #ccdcbb;
+}
+
+.card,
+.modal-content {
+    background: #ccdcbb;
+}
+
+.card,
+.btn {
+    border: none;
+    /* border-radius: 20px; */
+    /* box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff; */
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    -webkit-box-shadow: 12px 12px 24px #adbb9f, -12px -12px 24px #ebfdd7;
+    box-shadow: 12px 12px 24px #adbb9f, -12px -12px 24px #ebfdd7;
+}

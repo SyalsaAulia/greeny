@@ -4,87 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <title>Greeny - Klasifikasi Sampah Menggunakan Machine Learning</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background-color: #ecf8dc;" onload="init()">
-    <div class="container">
-        <header class="d-flex flex-wrap justify-content-center py-2">
-            <a href="/" class="d-flex align-items-center me-md-auto text-dark text-decoration-none">
+<body onload="init()">
+    <div class="container text-secondary">
+        <header class="d-flex flex-wrap py-2 mt-2">
+            <a href="/" class="d-flex text-dark text-decoration-none">
                 <button type="button" class="btn btn-outline-secondary btn-lg px-4">Kembali</button>
             </a>
+            <a href="#" class="d-flex mx-5 text-dark text-decoration-none">
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4" data-bs-toggle="modal" data-bs-target="#petunjukModal">&#9432; Petunjuk</button>
+            </a>
         </header>
-    </div>
 
-    <div class="px-4 py-3 my-3 text-center">
-        <div class="d-block mx-auto mb-4 rounded" id="webcam-container"></div>
-        <div class="col-lg-6 mx-auto">
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <div id="label-container"></div>
+        <div class="py-2 mb-2 text-center row justify-content-between">
+            <div class="my-auto col-2 h-75" id="organik">
+                <div class="card-img-top mt-4">
+                    <img src="img/icons8-organic-food-50.png" class="w-25">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Organik</h5>
+                </div>
+            </div>
+            <div class="col-6 mx-5">
+                <div id="webcam-container" class="card-img-top mt-4"></div>
+                <div class="card-body">
+                    <h3 id="label-container" class="card-title"></h3>
+                </div>
+            </div>
+            <div class="my-auto col-2 h-75" id="anorganik">
+                <div class="card-img-top mt-4">
+                    <img src="img/icons8-paper-waste-50.png" class=" w-25">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Anorganik</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="petunjukModal" tabindex="-1" aria-labelledby="petunjukModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="petunjukModalLabel">&#9432; Petunjuk</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Cara Menggunakan:</h6>
+                        <p>Izinkan akses kamera pada situs, kemudian arahkan sampah anda pada webcam sehingga sampah dapat diklasifikasi berdasarkan <strong>organik</strong> atau <strong>anorganik</strong>
+                        </p>
+                        <h6>Apa itu sampah organik?</h6>
+                        <p>Sampah organik adalah sampah yang berasal dari makhluk hidup, baik manusia, hewan, maupun tumbuhan.
+                        </p>
+                        <h6>Apa itu sampah anorganik?</h6>
+                        <p>Sampah anorganik adalah sampah yang dihasilkan dari bahan-bahan non hayati baik berupa produk sinterik maupun hasil proses teknologi pengelolahan bahan tambang atau sumber daya alam dan tidak dapat diuraikan oleh alam</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="tensorflow/tf.min.js"></script>
     <script src="tensorflow/teachablemachine-image.min.js"></script>
-    <script type="text/javascript">
-        // More API functions here:
-        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+    <script src="waste-classification.js"></script>
 
-        // the link to your model provided by Teachable Machine export panel
-        // const URL = "https://teachablemachine.withgoogle.com/models/o_QRU9nqg/";
-        const URL = "./model/"
-
-        let model, webcam, labelContainer, maxPredictions;
-
-        // Load the image model and setup the webcam
-        async function init() {
-            const modelURL = URL + "model.json";
-            const metadataURL = URL + "metadata.json";
-
-            // load the model and metadata
-            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-            // or files from your local hard drive
-            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-            model = await tmImage.load(modelURL, metadataURL);
-            maxPredictions = model.getTotalClasses();
-
-            // Convenience function to setup a webcam
-            const flip = true; // whether to flip the webcam
-            webcam = new tmImage.Webcam(450, 450, flip); // width, height, flip
-            await webcam.setup(); // request access to the webcam
-            await webcam.play();
-            window.requestAnimationFrame(loop);
-
-            // append elements to the DOM
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
-            labelContainer = document.getElementById("label-container");
-            for (let i = 0; i < maxPredictions; i++) { // and class labels
-                labelContainer.appendChild(document.createElement("div"));
-            }
-        }
-
-        async function loop() {
-            webcam.update(); // update the webcam frame
-            await predict();
-            window.requestAnimationFrame(loop);
-        }
-
-        // run the webcam image through the image model
-        async function predict() {
-            // predict can take in an image, video or canvas html element
-            const prediction = await model.predict(webcam.canvas);
-            for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                labelContainer.childNodes[i].innerHTML = classPrediction;
-            }
-        }
-    </script>
 </body>
 
 </html>
