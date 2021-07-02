@@ -28,6 +28,8 @@ async function init() {
 
     // append elements to the DOM
     document.getElementById("webcam-container").appendChild(webcam.canvas);
+    showPage();
+
     labelContainer = document.getElementById("label-container");
     organikContainer = document.getElementById("organik");
     anorganikContainer = document.getElementById("anorganik");
@@ -79,4 +81,9 @@ function removeClass(ele, cls) {
         var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
         ele.className = ele.className.replace(reg, ' ');
     }
+}
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("content").style.display = "block";
 }
